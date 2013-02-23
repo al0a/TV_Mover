@@ -1,7 +1,7 @@
 TV Mover 0.1 (23/02/2013)
 ========================
 
-WHAT IS IT?
+What is it?
 -------------------------------
 	A simple Python script that does the following:
 		* Scan a directory of downloaded files, looking for video content.
@@ -10,12 +10,12 @@ WHAT IS IT?
 		   Some root folder ► TV Shows ► Show Name ► Season ## ► file.ext
 		* If changes are detected, i can also trigger an "update" command the an XBMC machine.
 
-COMPATIBILITY
+Compatibility
 -------------------------------
 	* I've only tested this script on Windows 7 64 bit.
 	* It runs using the uTorrent software "run program" feature, or by comment line.
 
-HOW TO SETUP
+How to setup
 -------------------------------
 	* Python
 		- Install Python 2.7 from http://www.python.org/download/releases/2.7.3/
@@ -49,7 +49,7 @@ HOW TO SETUP
 			- http://wiki.xbmc.org/index.php?title=Video_library/Naming_files/TV_shows
 			- Also consider using: http://forum.xbmc.org/showthread.php?tid=152000
 	
-NEXT VERSIONS (?)
+Next versions (?)
 -------------------------------
 	* Add support for movie handling.
 	* Consider checking shows/movies names against an online DB.
