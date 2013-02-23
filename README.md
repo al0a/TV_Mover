@@ -16,7 +16,7 @@ II. COMPATIBILITY
 III. HOW TO SETUP
 	* Python
 		- Install Python 2.7 from http://www.python.org/download/releases/2.7.3/
-		- Install Requests package from http://docs.python-requests.org/en/latest/user/install/#install
+		- Install Requests package from http://docs.python-requests.org/en/latest/user/install/
 
 	* First make sure you change the variables in the "Variables" (top) section of the script:
 		- show_reg - The pattern to match. Feel free to add more file extensions if needed.
