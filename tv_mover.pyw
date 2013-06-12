@@ -1,6 +1,11 @@
-import os,re,requests,sys, argparse,time
+import os
+import re
+import requests
+import argparse
+import time
+import glob
 
-# Variables
+# Consts
 show_reg = '(.{1,100})\.S(\d{2})E(\d{2})(.{1,100})\.(avi|mp4|mkv|m4v)$'
 dl_path = 'E:/Downloads/'
 mv_path = 'F:/XBMC/TV Shows/'
@@ -29,8 +34,15 @@ def _update_xbmc(*atv_list):
         if ('OK' not in req.text):
             url = 'http://%s/xbmcCmds/xbmcHttp?command=ExecBuiltIn&parameter=XBMC.UpdateLibrary(video)' %(atv[0])
             req = requests.get(url, auth=(atv[1], atv[2]))
-            
         print 'UpdateLibrary %s %s' %(atv[0],('OK' if ('OK' in req.text) else 'ERROR'))
+
+def _remove_torrent_files():
+    list = glob.glob(dl_path)
+    for f in list:
+        try:
+            os.remove(f)
+        except OSError:
+            pass
        
 # Main
 def _main(dry,update):
@@ -49,6 +61,7 @@ def _main(dry,update):
                     if (dry == 0):
                         _handle_show(old_path,new_path)
                     else: print '[Dry]'
+    _remove_torrent_files()
     if (update):
         _update_xbmc(*atv_list)
     else:
