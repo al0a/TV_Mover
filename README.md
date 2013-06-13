@@ -51,7 +51,6 @@ How to setup
 	
 Next versions (?)
 -------------------------------
-	* Add support for movie handling.
 	* Consider checking shows/movies names against an online DB.
 	* Consider using Python's library for XBMC controlling.
 	
