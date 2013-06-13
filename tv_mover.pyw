@@ -37,7 +37,7 @@ def _update_xbmc(*atv_list):
         print 'UpdateLibrary %s %s' %(atv[0],('OK' if ('OK' in req.text) else 'ERROR'))
 
 def _remove_torrent_files():
-    list = glob.glob(dl_path)
+    list = glob.glob("%s*.torrent" %dl_path)
     for f in list:
         try:
             os.remove(f)
