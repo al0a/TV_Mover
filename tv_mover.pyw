@@ -6,7 +6,7 @@ import time
 import glob
 
 # Consts
-show_reg = '.{1,100}(?:\.| )S(\d{2})E(\d{2}).{1,200}\.(?:avi|mp4|mkv|m4v)$'
+show_reg = '(.{1,100})(?:\.| )S(\d{2})E(\d{2}).{1,200}\.(?:avi|mp4|mkv|m4v)$'
 dl_path = 'E:/Downloads/'
 mv_path = 'F:/XBMC/TV Shows/'
 atv_list = [['10.0.0.5:8080','your_user','your_password']]
@@ -51,9 +51,9 @@ def _main(dry,update):
             file_name = file
             ro = re.match(show_reg,file_name)
             if (ro):
-                show = ro.group(0).replace('.',' ')
-                season = ro.group(1)
-                episode = ro.group(2)
+                show = ro.group(1).replace('.',' ')
+                season = ro.group(2)
+                episode = ro.group(3)
                 if (show and season and episode):
                     old_path = os.path.join(root,file)
                     new_path = '%s%s/Season %s/%s' %(mv_path,show,season,file_name)
