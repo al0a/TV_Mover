@@ -20,14 +20,14 @@ def _handle_show(old_path, new_path):
             os.renames(old_path, new_path)
             changed = True
             print '[OK]'
-        except:
+        except OSError:
             print '[Lock]'
             pass
     else:
         try:
             print '[Dup]'
             os.remove(old_path)
-        except:
+        except OSError:
             pass
     return changed
 
