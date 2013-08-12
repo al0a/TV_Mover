@@ -9,11 +9,12 @@ import glob
 show_reg = '(.{1,100})(?:\.| )S(\d{2})E(\d{2}).{1,200}\.(?:avi|mp4|mkv|m4v)$'
 dl_path = 'E:/Downloads/'
 mv_path = 'F:/XBMC/TV Shows/'
-atv_list = [['10.0.0.5:8080','your_user','your_password']]
+atv_list = [['10.0.0.5:8080', 'your_user', 'your_password']]
+
 
 # Helper functions
-def _handle_show(old_path,new_path):
-    if (not os.path.lexists(new_path)):
+def _handle_show(old_path, new_path):
+    if not os.path.lexists(new_path):
         try:
             os.renames(old_path, new_path)
             update = 1
@@ -27,14 +28,16 @@ def _handle_show(old_path,new_path):
             os.remove(old_path)
         except: pass
 
+
 def _update_xbmc(*atv_list):
     for atv in atv_list:
         url = 'http://%s/jsonrpc?request={ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "tv_mover"}' %(atv[0])
         req = requests.get(url, auth=(atv[1], atv[2]))
-        if ('OK' not in req.text):
+        if 'OK' not in req.text:
             url = 'http://%s/xbmcCmds/xbmcHttp?command=ExecBuiltIn&parameter=XBMC.UpdateLibrary(video)' %(atv[0])
             req = requests.get(url, auth=(atv[1], atv[2]))
         print 'UpdateLibrary %s %s' %(atv[0],('OK' if ('OK' in req.text) else 'ERROR'))
+
 
 def _remove_torrent_files():
     list = glob.glob("%s*.torrent" %dl_path)
@@ -43,26 +46,27 @@ def _remove_torrent_files():
             os.remove(f)
         except OSError:
             pass
-       
+
+
 # Main
-def _main(dry,update):
+def _main(dry, update):
     for root, folders, files in os.walk(dl_path):
         for file in files:
             file_name = file
-            ro = re.match(show_reg,file_name)
-            if (ro):
-                show = ro.group(1).replace('.',' ')
+            ro = re.match(show_reg, file_name)
+            if ro:
+                show = ro.group(1).replace('.', ' ')
                 season = ro.group(2)
                 episode = ro.group(3)
-                if (show and season and episode):
+                if show and season and episode:
                     old_path = os.path.join(root,file)
                     new_path = '%s%s/Season %s/%s' %(mv_path,show,season,file_name)
                     print 'Moving: %s ---> %s%s/Season %s/' %(file_name,mv_path,show,season),
-                    if (dry == 0):
-                        _handle_show(old_path,new_path)
+                    if dry == 0:
+                        _handle_show(old_path, new_path)
                     else: print '[Dry]'
     _remove_torrent_files()
-    if (update):
+    if update:
         _update_xbmc(*atv_list)
     else:
         print 'No library changes detected.'
@@ -75,5 +79,5 @@ if __name__ == "__main__":
     parser.add_argument('--utor', dest='utor', action="store", type=int, default=None, help='Torrent file status when triggering from uTorrent')
     res = parser.parse_args()
 
-    if ((not res.utor) or (res.utor == 11)):
-        _main(res.dry,res.update)
+    if (not res.utor) or (res.utor == 11):
+        _main(res.dry, res.update)
