@@ -1,3 +1,4 @@
+from debian.changelog import change
 import os
 import re
 import requests
@@ -14,10 +15,11 @@ atv_list = [['10.0.0.5:8080', 'your_user', 'your_password']]
 
 # Helper functions
 def _handle_show(old_path, new_path):
+    changed = False
     if not os.path.lexists(new_path):
         try:
             os.renames(old_path, new_path)
-            update = 1
+            changed = True
             print '[OK]'
         except:
             print '[Lock]'
@@ -28,6 +30,7 @@ def _handle_show(old_path, new_path):
             os.remove(old_path)
         except:
             pass
+    return changed
 
 
 def _update_xbmc(*atv_list):
@@ -51,6 +54,7 @@ def _remove_torrent_files():
 
 # Main
 def _main(dry, update):
+    change_detected = False
     for root, folders, files in os.walk(dl_path):
         for file in files:
             file_name = file
@@ -64,11 +68,12 @@ def _main(dry, update):
                     new_path = '%s%s/Season %s/%s' % mv_path, show, season, file_name
                     print 'Moving: %s ---> %s%s/Season %s/' % file_name, mv_path, show, season,
                     if dry == 0:
-                        _handle_show(old_path, new_path)
+                        if not change_detected:
+                            change_detected = _handle_show(old_path, new_path)
                     else:
                         print '[Dry]'
     _remove_torrent_files()
-    if update:
+    if update or change_detected:
         _update_xbmc(*atv_list)
     else:
         print 'No library changes detected.'
