@@ -1,4 +1,3 @@
-from debian.changelog import change
 import os
 import re
 import requests
