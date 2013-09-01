@@ -48,9 +48,3 @@ How to setup
 		* Note: make sure you understand XBMC's library structure:
 			- http://wiki.xbmc.org/index.php?title=Video_library/Naming_files/TV_shows
 			- Also consider using: http://forum.xbmc.org/showthread.php?tid=152000
-	
-Next versions (?)
--------------------------------
-	* Consider checking shows/movies names against an online DB.
-	* Consider using Python's library for XBMC controlling.
-	
