@@ -34,16 +34,16 @@ def _handle_show(old_path, new_path):
 
 def _update_xbmc(*atv_list):
     for atv in atv_list:
-        url = 'http://%s/jsonrpc?request={ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "tv_mover"}' % atv[0]
+        url = 'http://%s/jsonrpc?request={ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "tv_mover"}' % (atv[0])
         req = requests.get(url, auth=(atv[1], atv[2]))
         if 'OK' not in req.text:
-            url = 'http://%s/xbmcCmds/xbmcHttp?command=ExecBuiltIn&parameter=XBMC.UpdateLibrary(video)' % atv[0]
+            url = 'http://%s/xbmcCmds/xbmcHttp?command=ExecBuiltIn&parameter=XBMC.UpdateLibrary(video)' % (atv[0])
             req = requests.get(url, auth=(atv[1], atv[2]))
-        print 'UpdateLibrary %s %s' % atv[0], ('OK' if ('OK' in req.text) else 'ERROR')
+        print 'UpdateLibrary %s %s' % (atv[0], ('OK' if ('OK' in req.text) else 'ERROR'))
 
 
 def _remove_torrent_files():
-    list = glob.glob("%s*.torrent" % dl_path)
+    list = glob.glob("%s*.torrent" % (dl_path))
     for f in list:
         try:
             os.remove(f)
@@ -63,12 +63,11 @@ def _main(dry, update):
                 season = ro.group(2)
                 episode = ro.group(3)
                 if show and season and episode:
-                    old_path = os.path.join(root, file)
-                    new_path = '%s%s/Season %s/%s' % mv_path, show, season, file_name
-                    print 'Moving: %s ---> %s%s/Season %s/' % file_name, mv_path, show, season,
+                    old_path = os.path.join(root, file)                   
+                    new_path = '%s%s/Season %s/%s' % (mv_path, show, season, file_name)
+                    print 'Moving: %s ---> %s%s/Season %s/' % (file_name, mv_path, show, season),
                     if dry == 0:
-                        if not change_detected:
-                            change_detected = _handle_show(old_path, new_path)
+                        change_detected = _handle_show(old_path, new_path) or change_detected
                     else:
                         print '[Dry]'
     _remove_torrent_files()
