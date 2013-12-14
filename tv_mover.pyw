@@ -6,7 +6,7 @@ import time
 import glob
 
 # Consts
-show_reg = '(.{1,100})(?:\.| )S(\d{2})E(\d{2}).{1,200}\.(?:avi|mp4|mkv|m4v)$'
+show_reg = '(.{1,100})(?:\.| )[Ss](\d{2})[Ee](\d{2}).{1,200}\.(?:avi|mp4|mkv|m4v)$'
 dl_path = 'E:/Downloads/'
 mv_path = 'F:/XBMC/TV Shows/'
 atv_list = [['10.0.0.5:8080', 'your_user', 'your_password']]
