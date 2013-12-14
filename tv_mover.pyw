@@ -34,7 +34,7 @@ def _handle_show(old_path, new_path):
 
 def _update_xbmc(*atv_list):
     for atv in atv_list:
-                url = 'http://%s:%s@%s/jsonrpc?request={ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "tv_mover"}' % (atv[1], atv[2], atv[0])
+        url = 'http://%s:%s@%s/jsonrpc?request={ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "tv_mover"}' % (atv[1], atv[2], atv[0])
         req = requests.get(url, auth=(atv[1], atv[2]))
         if 'OK' not in req.text:
             url = 'http://%s:%s@%s/xbmcCmds/xbmcHttp?command=ExecBuiltIn&parameter=XBMC.UpdateLibrary(video)' % (atv[1], atv[2], atv[0])
