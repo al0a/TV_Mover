@@ -13,7 +13,7 @@ What is it?
 Compatibility
 -------------------------------
 	* I've only tested this script on Windows 7 64 bit.
-	* It runs using the uTorrent software "run program" feature, or by comment line.
+	* It runs using the uTorrent software "run program" feature, or by commend line.
 
 How to setup
 -------------------------------
